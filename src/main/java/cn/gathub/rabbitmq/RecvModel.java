@@ -7,11 +7,9 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-import java.util.List;
+public class RecvModel {
 
-public class RecvList {
-
-    private final static String QUEUE_NAME = "gathub-list";
+    private final static String QUEUE_NAME = "gathub-model";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -24,9 +22,9 @@ public class RecvList {
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
-            List<User> userList = JsonUtils.jsonToList(message, User.class);
+            User user = JsonUtils.jsonToPojo(message, User.class);
 
-            System.out.println(" [x] Received '" + userList.get(0).getUserName() + "'");
+            System.out.println(" [x] Received '" + user.getUserName() + "---" + user.getAge() + "'");
         };
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
         });

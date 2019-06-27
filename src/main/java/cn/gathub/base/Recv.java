@@ -7,7 +7,7 @@ import com.rabbitmq.client.DeliverCallback;
 
 public class Recv {
 
-    private final static String QUEUE_NAME = "cn/gathub";
+    private final static String QUEUE_NAME = "gathub";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
